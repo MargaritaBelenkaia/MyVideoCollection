@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/images/favicon.PNG">
+   
+   <!-- Cascade Style Sheets -->
+   <link rel="stylesheet" href="assets/css/bootstrap.css">
+   <link rel="stylesheet" href="assets/css/animate.css">
+   <link rel="stylesheet" href="assets/css/style.css">   
+
+   <!-- Main Angular Files -->
+   <script src="assets/js/angular.js"></script>
+   <script src="assets/js/angular-route.js"></script>
+   <script src="assets/js/angular-animate.js"></script>
+
+   <!-- Angular Config/Routes -->
+   <script src="app/app.js"></script>
+   <script src="app/routes.js"></script>
+
+   <!--Angular Controllers -->
+   <script src="app/controllers/userCtrl.js"></script>
+   <script src="app/controllers/mainCtrl.js"></script>
+   <script src="app/controllers/videoCtrl.js"></script>
+   <script src="app/controllers/collectionCtrl.js"></script>
+
+
+   <!--Angular services -->
+   <script src="app/services/userServices.js"></script>
+   <script src="app/services/authServices.js"></script>
+   <script src="app/services/videoServices.js"></script>
+   
+    <title>My Video Collection</title>
+
+  </head>
+
+  <body class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-app="userApp" ng-controller="mainCtrl as main" ng-show="main.loadme" ng-cloak>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><strong>MY VIDEO COLLECTION</strong></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/"><b>HOME</b></a></li>
+            <li><a ng-show="!main.isLoggedIn" href="/login"><b>LOGIN</b></a></li>
+            <li><a ng-show="!main.isLoggedIn" href="/register"><b>REGISTER</b></a></li>
+            <li class="dropdown">
+              <a ng-show="main.isLoggedIn" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>MENU</b><span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/upload"><h5>UPLOAD VIDEO</h5></a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/collection"><h5>MY COLLECTION<h5></a></li>
+              </ul>
+            </li>
+            <li><a ng-show="main.isLoggedIn" href="#"><strong> {{main.username}} </strong></a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a ng-show="main.isLoggedIn" href="/#" ng-click="main.logout();"><b>LOGOUT</b></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+
+      <div ng-view></div>
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+      <script src="assets/js/jquery-3.2.1.js"></script>
+    <script src="assets/js/bootstrap.js"></script> 
+  
+  </body>
+</html>

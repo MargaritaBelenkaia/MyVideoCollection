@@ -1,0 +1,42 @@
+
+<div class="form container col-xs-12 col-sm-12 col-md-9 col-lg-9">
+    <h3> UPLOAD VIDEO <h3>
+	<br>
+        <!--A LOADING SPINNER-->
+        <div class="jumbotron text-center" ng-show="upload.loading">
+            <span class="glyphicon glyphicon-repeat spinner"></span>
+            <p>Loading.....</p>
+        </div>
+
+        <!--A SUCCESS MESSAGE-->
+        <div class="row show-hide-message" ng-show = "upload.successMsg">
+            <div class="alert alert-success">{{ upload.successMsg }}</div>
+        </div>
+        
+        <!--AN ERROR MESSAGE-->
+        <div class="row show-hide-message" ng-show = "upload.errorMsg">
+            <div class="alert alert-danger">{{ upload.errorMsg }}</div>
+        </div>
+
+        <!--THE FORM-->
+        <form class="form" ng-submit="upload.addVideo(videoData);">
+            <label> Title: </label>
+            <input class="form-control" type="text" name="title" placeholder="Titile" ng-model="upload.videoData.title">
+            <br>
+
+            <label> Description: </label>
+            <input class="form-control" type="text" name="description" placeholder="Description of the video" ng-model="upload.videoData.description">
+            <br>
+
+            <label> Category: </label>
+            <input class="form-control" type="text" name="cotegory" placeholder="Category" ng-model="upload.videoData.category">
+            <br>
+
+            <label> YouTube link: </label>
+            <input class="form-control" type="text" name="link" placeholder="https://www.youtube.com/watch?v=egY8rUpxqcE" ng-model="upload.videoData.link">
+            <br>
+
+            <button class="btn btn-secondary btn-block btn-md" type="submit">UPLOAD</button>
+
+        </form>
+</div>

@@ -1,0 +1,32 @@
+<div class="form container col-xs-12 col-sm-12 col-md-9 col-lg-9">
+    <h3>USER  LOGIN</h3>
+    <br>
+        <!--A LOADING SPINNER-->
+        <div class="jumbotron text-center" ng-show="main.loading">
+            <span class="glyphicon glyphicon-repeat spinner"></span>
+            <p>Loading.....</p>
+        </div>
+
+        <!--A SUCCESS MESSAGE-->
+        <div class="row show-hide-message" ng-show = "main.successMsg">
+            <div class="alert alert-success">{{ main.successMsg }}</div>
+        </div>
+
+        <!--AN ERROR MESSAGE-->
+        <div class="row show-hide-message" ng-show = "main.errorMsg">
+            <div class="alert alert-danger">{{ main.errorMsg }}</div>
+        </div>
+
+        <!--THE FORM-->
+        <form class="form" ng-submit="main.doLogin(loginData);">
+            <label>Username: </label>
+            <input class="form-control" type="text" name="username" placeholder="Username" ng-model="main.loginData.username">
+            <br>
+
+            <label>Password: </label>
+            <input class="form-control" type="password" name="password" placeholder="Password" ng-model="main.loginData.password">
+            <br>
+
+            <button class="btn btn-secondary btn-block btn-md" type="submit">LOGIN</button>
+        </form>   
+</div>

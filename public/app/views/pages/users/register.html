@@ -1,0 +1,41 @@
+<div class="form container col-xs-12 col-sm-12 col-md-9 col-lg-9">
+    <h3>USER  REGISTRATION</h3>
+    <br>
+        <!--A LOADING SPINNER-->
+        <div class="jumbotron text-center" ng-show="register.loading">
+            <span class="glyphicon glyphicon-repeat spinner"></span>
+            <p>Loading.....</p>
+        </div>
+
+        <!--A SUCCESS MESSAGE-->
+        <div class="row show-hide-message" ng-show = "register.successMsg">
+            <div class="alert alert-success">{{ register.successMsg }}</div>
+        </div>
+
+        <!--AN ERROR MESSAGE-->
+        <div class="row show-hide-message" ng-show = "register.errorMsg">
+            <div class="alert alert-danger">{{ register.errorMsg }}</div>
+        </div>
+
+        <!--THE FORM-->
+        <form class="form" ng-submit="register.regUser(regData);">
+            <label> Full Name: </label>
+            <input class="form-control" type="text" name="name" placeholder="Firstname Lastname" ng-model="register.regData.name">
+            <br>
+
+            <label> Username: </label>
+            <input class="form-control" type="text" name="username" placeholder="Username1" ng-model="register.regData.username">
+            <br>
+
+            <label> Password: </label>
+            <input class="form-control" type="password" name="password" placeholder="Pa$$w0rd" ng-model="register.regData.password">
+            <br>
+
+            <label> Confirm Password: </label>
+            <input class="form-control" type="password" name="confirm" placeholder="Pa$$w0rd" ng-model="register.regData.confirm">
+            <br>
+
+            <button class="btn btn-secondary btn-block btn-md" type="submit">REGISTRATION</button>
+
+        </form>
+</div>

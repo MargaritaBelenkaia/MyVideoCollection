@@ -1,0 +1,180 @@
+`<div class="display container col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    <div class="panel-heading">
+        <h3>MY COLLECTION</h3>
+    </div>
+
+    <!--A LOADING SPINNER-->
+    <div class="jumbotron text-center" ng-show="manage.loading">
+        <span class="glyphicon glyphicon-repeat spinner"></span>
+        <p>Loading.....</p>
+    </div>
+
+    <!--FILTERS-->
+    <div class="filters">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon">SEARCH BY KEY WORD:</span>
+                <input type="text" class="form-control" ng-model="key">
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon">RESULTS TO DISPLAY:</span>
+                <input type="text" class="form-control" ng-model="number">
+            </div>
+        </div>
+        <button type="button" class="btn btn-default btn-default" ng-click="manage.showMore(number);">APPLY FILTER</button>
+        <button type="button" class="btn btn-default btn-default" ng-click="manage.showAll();">SHOW ALL</button>
+    </div>
+
+    <br>
+
+    <!--AN ERROR MESSAGE-->
+    <div class="row show-hide-message" ng-show = "manage.showMoreError">
+        <div class="alert alert-danger">{{ manage.showMoreError }}</div>
+    </div>
+
+    <table class="table">
+        <tr class="tabheaders">
+            <th><h4><b>N</b></h4></th>
+            <th><h4><b>TITLE</b></h4></th>
+            <th><h4><b>DESCRIPTION</b></h4></th>
+            <th><h4><b>CATEGORY</b><h4></th>
+            <th><h4><b>YouTube LINK</b></h4></th>
+            <th><h4><b>OPTIONS</b></h4></th>
+        </tr>
+        
+        <tr ng-repeat="video in manage.videos | filter: key | limitTo: manage.limit ">
+            <td><b id="index">{{ $index + 1 }}</b></td>
+            <td><b>{{ video.title }}</b></td>
+            <td><b>{{ video.description }}</b></td>
+            <td><b>{{ video.category }}</b></td>
+            <td>
+                <a href="{{video.link}}">
+                    <button class="btn btn-sm btn-default" type="button">Watch on YouTube</button>
+                </a>
+            </td>
+            <td id="td-buttons">
+
+            <!--PLAY-->
+             <button class="btn btn-default btn-sm" type="button" data-target="#playModal" data-toggle="modal" ng-click="manage.playVideo(video.link, video.title);">Play</button>
+                <div class="modal" id="playModal" tabindex="-1">
+                    <div class="modal-dialog" id="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">PLAY</h4>
+                                <h4 class="modal-title">{{ manage.vid.title }}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container iframe-container iframe-container-for-wxh-550x330"  ng-repeat="video in manage.videos |limitTo: 1">
+                                    <img class="favicon" ng-src="assets/images/favicon.PNG" />
+                                    <iframe class="youtube-player" type="text/html" height="330" width="550" ng-src="{{manage.trustSrc(manage.vid.src)}}" frameborder="0" allowfullscreen>                                        
+                                    </iframe>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary btn-md" data-dismiss="modal">CLOSE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--EDIT-->
+                 <button class="btn btn-default btn-sm" data-target="#editModal" data-toggle="modal" type="button" ng-click="manage.preditVideo(video.link, video.title, video._id);">Edit</button>
+                    <div class="modal" id="editModal" tabindex="-1">
+                        <div class="modal-dialog" id="modal-dialog">
+                            <div class="modal-content" id="modal-content">
+                                <div class="modal-header">
+                                    <button class="close" data-dismiss="modal"  ng-click="manage.callCollection();">&times;</button>
+                                    <h4 class="modal-title">EDIT</h4>
+                                    <h4 class="modal-title">{{ manage.vid.title }}</h4>
+                                </div>
+                                <div class="modal-body">
+                                        <!--A LOADING SPINNER-->
+                                        <div class="jumbotron text-center" ng-show="manage.loading">
+                                            <span class="glyphicon glyphicon-repeat spinner"></span>
+                                            <p>Loading.....</p>
+                                        </div>
+
+                                        <!--A SUCCESS MESSAGE-->
+                                        <div class="row show-hide-message" ng-show = "manage.successMsg">
+                                            <div class="alert alert-success">{{ manage.successMsg }}</div>
+                                        </div>
+                                        <!--AN ERROR MESSAGE-->
+                                        <div class="row show-hide-message" ng-show = "manage.errorMsg">
+                                            <div class="alert alert-danger">{{ manage.errorMsg }}</div>
+                                        </div>
+                                        <form ng-submit="manage.editVideo(manage.vid._id, manage);">
+                                            <div class="form-group" ng-repeat="video in manage.videos | limitTo: 1">
+
+                                                    <label> New YouTube link: </label>
+                                                    <input class="form-control" type="text" name="link" placeholder="{{manage.vid.link}}" ng-model="manage.editData">                                                
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary btn-md" type="buton">EDIT LINK</button>
+                                                <button class="btn btn-secondary btn-md" data-dismiss="modal" ng-click="manage.callCollection();">CLOSE</button>
+                                            </div>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <!--DELETE-->
+                <button class="btn btn-danger btn-sm" data-target="#deleteModal" data-toggle="modal" type="button" ng-click="manage.predeleteVideo(video._id, video.title);">Delete</button>
+                    <div class="modal" id="deleteModal" tabindex="-1">
+                        <div class="modal-dialog" id="modal-dialog">
+                            <div class="modal-content" id="modal-content">
+                                <div class="modal-header">
+                                    <button class="close" data-dismiss="modal" ng-click="manage.callCollection();">&times;</button>
+                                    <h4 class="modal-title">Delete {{ manage.vid.title }}</h4>
+                                    <h5 class="modal-title">Please verify you are {{ main.username }}</h5>
+                                </div>
+                                <div class="modal-body">
+                                        <!--A LOADING SPINNER-->
+                                        <div class="jumbotron text-center" ng-show="manage.loading">
+                                            <span class="glyphicon glyphicon-repeat spinner"></span>
+                                            <p>Loading.....</p>
+                                        </div>
+
+                                        <!--A SUCCESS MESSAGE-->
+                                        <div class="row show-hide-message" ng-show = "manage.successMsg">
+                                            <div class="alert alert-success">{{ manage.successMsg }}</div>
+                                        </div>
+                                        <!--AN ERROR MESSAGE-->
+                                        <div class="row show-hide-message" ng-show = "manage.errorMsg">
+                                            <div class="alert alert-danger">{{ manage.errorMsg }}</div>
+                                        </div>
+                                        <form  ng-submit="manage.isReal(manage.userData, manage);">    
+                                            <div class="form-group" ng-repeat="video in manage.videos | limitTo: 1">
+                                                <label>Re-enter your password:</label>
+                                                <input class="form-control" type="password" name="password" placeholder="Password" ng-model="manage.userData.password">                                                
+                                                <button class="btn btn-danger btn-block btn-md" type="button" ng-click="manage.deleteVideo(manage.vid._id, manage);"  ng-show="manage.successMsg">Delete {{ manage.vid.title }}</button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary btn-md" type="submit">SEND</button>
+                                                <button class="btn btn-secondary btn-md" data-dismiss="modal" ng-click="manage.callCollection();" type="button">CLOSE</button>
+                                            </div>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            </td>
+        </tr>
+    </table>
+
+
+ 
+
+
+
+
+
+ 
