@@ -6,7 +6,7 @@ angular.module('videoController', ['videoServices'])
     var app = this;
 
     //UPLOAD
-    this.addVideo = function(videoData) {
+    app.addVideo = function(videoData) {
         app.loading = true;
         app.errorMsg = false;
         
