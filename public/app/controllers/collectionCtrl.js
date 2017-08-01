@@ -46,7 +46,7 @@ angular.module('collectionController', [])
     //EDIT VIDEO
    app.preditVideo = function(link, title, _id) {
         vid = {};
-        app.vid = app.vid = { link: link, title: title, _id: _id };
+        app.vid = { link: link, title: title, _id: _id };
         return app.vid;
     }
 
