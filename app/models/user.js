@@ -14,7 +14,7 @@ var nameValidator = [
     validate({
         validator: 'matches',
         arguments: ['(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$'], 
-        message: 'Please check your name field. No special characters or numbers allowed. A space is required in between. The firstname and the lastname should be at least 3 characters each.'
+        message: 'Please make sure you provided your full name.'
     })
 ];
 
